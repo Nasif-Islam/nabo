@@ -1,10 +1,6 @@
 const db = require("../connection");
 const format = require("pg-format");
-const {
-  convertTimestampToDate,
-  createLookup,
-  formatComments,
-} = require("./seed-utils");
+const { createLookup, formatComments } = require("./seed-utils");
 
 const seed = async ({ topicData, userData, articleData, commentData }) => {
   await db.query(`DROP TABLE IF EXISTS comments;`);
@@ -12,7 +8,7 @@ const seed = async ({ topicData, userData, articleData, commentData }) => {
   await Promise.all([
     db.query(`DROP TABLE IF EXISTS users;`),
     db.query(`DROP TABLE IF EXISTS topics;`),
-    db.query(`DROP TABLE IF EXISTS emojis`),
+    db.query(`DROP TABLE IF EXISTS emojis;`),
   ]);
 
   const usersTablePromise = db.query(`
@@ -35,15 +31,16 @@ const seed = async ({ topicData, userData, articleData, commentData }) => {
 
   const emojisTablePromise = db.query(`
     CREATE TABLE emojis (
-      emoji_id PRIMARY KEY,
-      emoji VARCHAR NOT NULL,
+      emoji_id SERIAL PRIMARY KEY,
+      emoji VARCHAR NOT NULL
     );
     `);
 
-  await Promise.all(
-    [usersTablePromise, topicsTablePromise],
+  await Promise.all([
+    usersTablePromise,
+    topicsTablePromise,
     emojisTablePromise,
-  );
+  ]);
 
   await db.query(`
     CREATE TABLE articles (

@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const util = require("util");
 
 const COUNTS = {
   USERS: 10,
@@ -147,8 +148,9 @@ function saveDataToFile(fileName, data) {
   }
 
   const filePath = path.join(outputDir, fileName);
+  const dataString = util.inspect(data, { compact: false, depth: null }); // saves as JS object syntax instead of JSON (non "" around keys)
+  const fileContent = `module.exports = ${dataString};`;
 
-  const fileContent = `module.exports = ${JSON.stringify(data, null, 2)};`;
   fs.writeFileSync(filePath, fileContent);
 
   return filePath;

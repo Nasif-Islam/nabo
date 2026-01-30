@@ -1,102 +1,102 @@
 module.exports = [
   {
     emoji_id: 1,
-    emoji: "😀",
+    emoji: '😀'
   },
   {
     emoji_id: 2,
-    emoji: "🚀",
+    emoji: '🚀'
   },
   {
     emoji_id: 3,
-    emoji: "🎉",
+    emoji: '🎉'
   },
   {
     emoji_id: 4,
-    emoji: "🔥",
+    emoji: '🔥'
   },
   {
     emoji_id: 5,
-    emoji: "🐱",
+    emoji: '🐱'
   },
   {
     emoji_id: 6,
-    emoji: "🌮",
+    emoji: '🌮'
   },
   {
     emoji_id: 7,
-    emoji: "😂",
+    emoji: '😂'
   },
   {
     emoji_id: 8,
-    emoji: "😍",
+    emoji: '😍'
   },
   {
     emoji_id: 9,
-    emoji: "😎",
+    emoji: '😎'
   },
   {
     emoji_id: 10,
-    emoji: "🤔",
+    emoji: '🤔'
   },
   {
     emoji_id: 11,
-    emoji: "😭",
+    emoji: '😭'
   },
   {
     emoji_id: 12,
-    emoji: "🥳",
+    emoji: '🥳'
   },
   {
     emoji_id: 13,
-    emoji: "🐶",
+    emoji: '🐶'
   },
   {
     emoji_id: 14,
-    emoji: "🦄",
+    emoji: '🦄'
   },
   {
     emoji_id: 15,
-    emoji: "🐙",
+    emoji: '🐙'
   },
   {
     emoji_id: 16,
-    emoji: "🦕",
+    emoji: '🦕'
   },
   {
     emoji_id: 17,
-    emoji: "🌵",
+    emoji: '🌵'
   },
   {
     emoji_id: 18,
-    emoji: "🌈",
+    emoji: '🌈'
   },
   {
     emoji_id: 19,
-    emoji: "🍕",
+    emoji: '🍕'
   },
   {
     emoji_id: 20,
-    emoji: "🍔",
+    emoji: '🍔'
   },
   {
     emoji_id: 21,
-    emoji: "🍩",
+    emoji: '🍩'
   },
   {
     emoji_id: 22,
-    emoji: "🍺",
+    emoji: '🍺'
   },
   {
     emoji_id: 23,
-    emoji: "☕",
+    emoji: '☕'
   },
   {
     emoji_id: 24,
-    emoji: "🥑",
+    emoji: '🥑'
   },
   {
     emoji_id: 25,
-    emoji: "⚽",
-  },
+    emoji: '⚽'
+  }
 ];
