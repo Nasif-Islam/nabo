@@ -4,7 +4,7 @@ const {
   convertTimestampToDate,
   createLookup,
   formatComments,
-} = require("./utils");
+} = require("./seed-utils");
 
 const seed = async ({ topicData, userData, articleData, commentData }) => {
   await db.query(`DROP TABLE IF EXISTS comments;`);

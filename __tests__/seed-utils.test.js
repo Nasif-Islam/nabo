@@ -1,4 +1,4 @@
-const { createLookup, formatComments } = require("../db/seeds/utils");
+const { createLookup, formatComments } = require("../db/seeds/seed-utils");
 
 describe("createLookup", () => {
   test("returns an empty object when passed an empty array as the input argument", () => {

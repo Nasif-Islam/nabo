@@ -1,16 +1,27 @@
-function generateEmojiData(numOfRows) {
-  const data = [];
-  const emojis = ["😀", "🚀", "🎉", "🔥", "🐱", "🌮"];
-
-  for (let i = 0; i < numOfRows; i++) {
-    const record = {
-      emoji_id: i,
-      emoji: emojis[i % emojis.length],
-    };
-    data.push(record);
-  }
-
-  return data;
-}
-
-module.exports = generateEmojiData(15);
+module.exports = [
+  { emoji_id: 1, emoji: "😀" },
+  { emoji_id: 2, emoji: "🚀" },
+  { emoji_id: 3, emoji: "🎉" },
+  { emoji_id: 4, emoji: "🔥" },
+  { emoji_id: 5, emoji: "🐱" },
+  { emoji_id: 6, emoji: "🌮" },
+  { emoji_id: 7, emoji: "😂" },
+  { emoji_id: 8, emoji: "😍" },
+  { emoji_id: 9, emoji: "😎" },
+  { emoji_id: 10, emoji: "🤔" },
+  { emoji_id: 11, emoji: "😭" },
+  { emoji_id: 12, emoji: "🥳" },
+  { emoji_id: 13, emoji: "🐶" },
+  { emoji_id: 14, emoji: "🦄" },
+  { emoji_id: 15, emoji: "🐙" },
+  { emoji_id: 16, emoji: "🦕" },
+  { emoji_id: 17, emoji: "🌵" },
+  { emoji_id: 18, emoji: "🌈" },
+  { emoji_id: 19, emoji: "🍕" },
+  { emoji_id: 20, emoji: "🍔" },
+  { emoji_id: 21, emoji: "🍩" },
+  { emoji_id: 22, emoji: "🍺" },
+  { emoji_id: 23, emoji: "☕" },
+  { emoji_id: 24, emoji: "🥑" },
+  { emoji_id: 25, emoji: "⚽" },
+];
