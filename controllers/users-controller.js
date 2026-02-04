@@ -1,4 +1,4 @@
-const { fetchTopics } = require("../models/users.model");
+const { fetchTopics } = require("../models/users-model");
 
 exports.getTopics = async (req, res, next) => {
   const topics = await fetchTopics();
