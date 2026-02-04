@@ -1,6 +1,6 @@
-// just handle http
+// just handles http
 
-const { getTopics: getTopicsService } = require("../services/topics.service");
+const { getTopicsService } = require("../services/topics.service");
 
 exports.getTopics = async (req, res, next) => {
   const topics = await getTopicsService();

@@ -1,4 +1,6 @@
-const topicsUser = require("express").Router();
-const getUsers = require("../controllers/topics.controller");
+const topicsRouter = require("express").Router();
+const { getTopics } = require("../controllers/topics-controller");
 
-topicsUser.use("/api/users", getUsers);
+topicsRouter.get("/", getTopics);
+
+module.exports = topicsUser;

@@ -10,3 +10,5 @@ app.use("/api/comments", commentsRouter);
 app.use("/api/articles", articlesRouter);
 
 app.use("/api/users", usersRouter);
+
+module.exports(apiRouter);

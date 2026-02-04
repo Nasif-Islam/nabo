@@ -1,11 +1,11 @@
-const {} = require("../models/topics.model.js");
+const { fetchTopics } = require("../models/topics.model.js");
 
 // business logic
 // filtering
 
-exports.getTopics = async () => {
+exports.getTopicsService = async () => {
   // if (currentUser.hasPermission(someParameter)) {}
-  return await this.getTopics();
+  return await fetchTopics();
   //}
 };
 
