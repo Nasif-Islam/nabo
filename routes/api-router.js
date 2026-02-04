@@ -5,10 +5,12 @@ const articlesRouter = require("./articles-router");
 
 const apiRouter = require("express").Router();
 
-exports.apiRouter.use("/topics", topicsRouter);
+apiRouter.use("/topics", topicsRouter);
 
-exports.apiRouter.use("/articles", articlesRouter);
+apiRouter.use("/articles", articlesRouter);
 
 // apiRouter.use("/comments", commentsRouter);
 
 // apiRouter.use("/users", usersRouter);
+
+module.exports = apiRouter;

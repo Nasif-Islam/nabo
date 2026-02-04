@@ -1,4 +1,4 @@
-const { fetchTopics } = require("../models/topics.model.js");
+const { fetchTopics } = require("../models/topics-model.js");
 
 // business logic
 // filtering

@@ -28,13 +28,44 @@ describe("Express App Testing", () => {
       const topics = response.body.topics;
 
       expect(response.status).toBe(200);
-
       expect(Array.isArray(topics)).toBe(true);
+
       topics.forEach((topic) => {
         expect(topic).toMatchObject({
           slug: expect.any(String),
           description: expect.any(String),
         });
+
+        expect(
+          typeof topic.img_url === "string" || topic.img_url === null,
+        ).toBe(true);
+      });
+    });
+  });
+
+  describe("GET /api/articles", () => {
+    test("status200 - responds with correct articles data", async () => {
+      const response = await request(app).get("/api/articles");
+      const articles = response.body.articles;
+
+      expect(response.status).toBe(200);
+      expect(Array.isArray(articles)).toBe(true);
+      expect(articles.length).toBeGreaterThan(0);
+
+      articles.forEach((article) => {
+        expect(article).toMatchObject({
+          article_id: expect.any(Number),
+          title: expect.any(String),
+          topic: expect.any(String),
+          author: expect.any(String),
+          body: expect.any(String),
+          created_at: expect.any(String), // JSON dates = string not date
+          votes: expect.any(Number),
+        });
+        expect(
+          typeof article.article_img_url === "string" ||
+            article.article_imd_url === null,
+        ).toBe(true);
       });
     });
   });
