@@ -1,14 +1,16 @@
-const topicsRouter = require("./routes/topics-router.js");
-const commentsRouter = require("./routes/comments-router.js");
-const articlesRouter = require("./routes/articles-router.js");
-const usersRouter = require("./routes/users-router.js");
+const topicsRouter = require("./topics-router");
+// const commentsRouter = require("./comments-router");
+// const articlesRouter = require("./articles-router");
+// const usersRouter = require("./users-router");
 
-app.use("/api/topics", topicsRouter);
+const apiRouter = require("express").Router();
 
-app.use("/api/comments", commentsRouter);
+apiRouter.use("/topics", topicsRouter);
 
-app.use("/api/articles", articlesRouter);
+// apiRouter.use("/comments", commentsRouter);
 
-app.use("/api/users", usersRouter);
+// apiRouter.use("/articles", articlesRouter);
 
-module.exports(apiRouter);
+// apiRouter.use("/users", usersRouter);
+
+module.exports = apiRouter;

@@ -3,4 +3,4 @@ const { getTopics } = require("../controllers/topics-controller");
 
 topicsRouter.get("/", getTopics);
 
-module.exports = topicsUser;
+module.exports = topicsRouter;

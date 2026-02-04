@@ -6,13 +6,13 @@ app.use(express.json());
 
 app.use("/api", apiRouter);
 
-app.all("*", (req, res) => {
+app.all("*path", (req, res) => {
   res.status(404).send({ message: "Route not found" });
 });
 
 app.use((err, req, res, next) => {
-  const { status = 500, msg = "Internal Server Error" } = err;
-  res.status(status).send({ message: messages });
+  const { status = 500, message = "Internal Server Error" } = err;
+  res.status(status).send({ message: message });
 });
 
 module.exports = app;
