@@ -1,6 +1,6 @@
 const {
   getArticlesService,
-  getArticleByService,
+  getArticleByIdService,
 } = require("../services/articles-service");
 
 exports.getArticles = async (req, res, next) => {
@@ -8,7 +8,7 @@ exports.getArticles = async (req, res, next) => {
   res.status(200).send({ articles: articles });
 };
 
-exports.getArticle = async (req, res, next) => {
+exports.getArticleById = async (req, res, next) => {
   try {
     const { article_id } = req.params;
 

@@ -4,7 +4,7 @@ exports.getArticlesService = async () => {
   return await fetchArticles();
 };
 
-exports.getArticleService = async (article_id) => {
+exports.getArticleByIdService = async (article_id) => {
   const rows = await fetchArticleById(article_id);
 
   if (rows.length === 0) {

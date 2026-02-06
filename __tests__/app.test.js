@@ -19,7 +19,7 @@ describe("Express App Testing", () => {
       const response = await request(app).get("/invalid-route");
 
       expect(response.status).toBe(404);
-      expect(response.body.message).toBe("Route not found");
+      expect(response.body.msg).toBe("Route not found");
     });
   });
 
@@ -73,6 +73,40 @@ describe("Express App Testing", () => {
 
       expect(articles).toBeSortedBy("created_at", { descending: true });
     });
+  });
+
+  describe("GET /api/articles/:article_id", () => {
+    test("status:200 - responds with correct article object", async () => {
+      const response = await request(app).get("/api/articles/1");
+
+      expect(response.status).toBe(200);
+
+      const article = response.body.article;
+
+      expect(article).toMatchObject({
+        author: expect.any(String),
+        title: expect.any(String),
+        article_id: expect.any(Number),
+        body: expect.any(String),
+        topic: expect.any(String),
+        created_at: expect.any(String),
+        votes: expect.any(Number),
+        article_img_url: expect.any(String),
+      });
+    });
+
+    test("status:404 - correct message for resource not found'", async () => {
+      const response = await request(app).get("/api/articles/100");
+
+      expect(response.status).toBe(404);
+      expect(response.body.msg).toBe("Article not found");
+    });
+  });
+
+  test("status:400 - correct message for bad request", async () => {
+    const response = await request(app).get("/api/articles/hello");
+    expect(response.status).toBe(400);
+    expect(response.body.msg).toBe("Bad Request");
   });
 
   describe("GET /api/users", () => {

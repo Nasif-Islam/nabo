@@ -7,12 +7,28 @@ app.use(express.json());
 app.use("/api", apiRouter);
 
 app.all("*path", (req, res) => {
-  res.status(404).send({ message: "Route not found" });
+  res.status(404).send({ msg: "Route not found" });
 });
 
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Internal Server Error" } = err;
-  res.status(status).send({ message: message });
+  if (err.status && err.msg) {
+    res.status(err.status).send({ msg: err.msg });
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  if (err.code === "22P02") {
+    res.status(400).send({ msg: "Bad Request" });
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send({ msg: "Internal Server Error" });
 });
 
 module.exports = app;
