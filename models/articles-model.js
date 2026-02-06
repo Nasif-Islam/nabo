@@ -22,3 +22,24 @@ exports.fetchArticles = async () => {
   const { rows } = await db.query(queryStr);
   return rows;
 };
+
+exports.fetchArticleById = async (article_id) => {
+  const { rows } = await db.query(
+    `SELECT
+      article_id,
+      title,
+      topic,
+      author,
+      body,
+      created_at,
+      votes,
+      article_img_url 
+    FROM
+      articles
+    WHERE
+      article_id = $1`,
+    [article_id],
+  );
+
+  return rows;
+};
