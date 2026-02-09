@@ -274,4 +274,29 @@ describe("Express App Testing", () => {
       expect(res.body.msg).toBe("Bad request");
     });
   });
+
+  describe("DELETE /api/comments/:comment_id", () => {
+    test("204: deletes the comment and responds with no content", async () => {
+      const { body } = await request(app).delete("/api/comments/1").expect(204);
+      expect(body).toEqual({});
+    });
+
+    test("404: responds with an error message when trying to delete a non-existent comment", async () => {
+      const { body } = await request(app)
+        .delete("/api/comments/999")
+        .expect(404);
+
+      expect(body.msg).toBe("Comment not found");
+    });
+
+    test("400: responds with an error message for an invalid comment_id", async () => {
+      const res = await request(app).delete("/api/comments/hello").expect(400);
+      expect(res.body.msg).toBe("Bad request");
+    });
+
+    test("204: returns 404 error message upon successive delete request", async () => {
+      await request(app).delete("/api/comments/1").expect(204);
+      await request(app).delete("/api/comments/1").expect(404);
+    });
+  });
 });
