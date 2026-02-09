@@ -8,10 +8,10 @@ const {
 } = require("../services/articles-service");
 
 exports.getArticles = async (req, res, next) => {
-  const { sort_by, order } = req.query;
+  const { sort_by, order, topic } = req.query;
 
   try {
-    const articles = await getArticlesService(sort_by, order);
+    const articles = await getArticlesService(sort_by, order, topic);
     res.status(200).send({ articles: articles });
   } catch (err) {
     next(err);

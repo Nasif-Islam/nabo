@@ -1,6 +1,6 @@
 const db = require("../db/connection");
 
-exports.fetchArticles = async (sort_by, order) => {
+exports.fetchArticles = async (sort_by, order, topic) => {
   const validSortColumns = [
     "article_id",
     "title",
@@ -19,7 +19,8 @@ exports.fetchArticles = async (sort_by, order) => {
 
   const sortTarget = sort_by === "comment_count" ? sort_by : `a.${sort_by}`;
 
-  const queryStr = `
+  const queryValues = [];
+  let queryStr = `
     SELECT
       a.article_id, 
       a.title, 
@@ -33,13 +34,19 @@ exports.fetchArticles = async (sort_by, order) => {
       articles AS a
     LEFT JOIN
       comments AS c ON a.article_id = c.article_id
-    GROUP BY
-      a.article_id
-    ORDER BY
-      ${sortTarget} ${order};
   `;
 
-  const { rows } = await db.query(queryStr);
+  if (topic) {
+    queryStr += ` WHERE a.topic = $1`;
+    queryValues.push(topic);
+  }
+
+  queryStr += `
+    GROUP BY a.article_id
+    ORDER BY ${sortTarget} ${order};
+  `;
+
+  const { rows } = await db.query(queryStr, queryValues);
   return rows;
 };
 

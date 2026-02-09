@@ -8,31 +8,32 @@ const {
 
 const { validateId, checkExists } = require("../utils/db-validators");
 
-exports.getArticlesService = async (sort_by = "created_at", order = "desc") => {
+exports.getArticlesService = async (
+  sort_by = "created_at",
+  order = "desc",
+  topic,
+) => {
   const normalizedSortBy = sort_by.toLowerCase();
   const normalizedOrder = order.toUpperCase();
-  return await fetchArticles(normalizedSortBy, normalizedOrder);
+
+  if (topic) {
+    await checkExists("topics", "slug", topic);
+  }
+
+  return await fetchArticles(normalizedSortBy, normalizedOrder, topic);
 };
 
 exports.getArticleByIdService = async (article_id) => {
   validateId(article_id);
+  await checkExists("articles", "article_id", article_id);
 
   const rows = await fetchArticleById(article_id);
-
-  checkExists(rows, "Article");
-
   return rows[0];
 };
 
 exports.getArticleCommentsService = async (article_id) => {
   validateId(article_id);
-
-  const rows = await fetchArticleById(article_id);
-
-  checkExists(rows, "Article");
-  // if (article.length === 0) {
-  //   throw { status: 404, msg: "Article not found" };
-  // }
+  await checkExists("articles", "article_id", article_id);
 
   return await fetchArticleComments(article_id);
 };
@@ -44,16 +45,10 @@ exports.postCommentService = async (article_id, username, body) => {
     throw { status: 400, msg: "Bad request" };
   }
 
-  const article = await fetchArticleById(article_id);
-
-  checkExists(article, "Article");
-
-  // if (article.length === 0) {
-  //   throw { status: 400, msg: "Bad request" };
-  // }
+  await checkExists("articles", "article_id", article_id);
+  await checkExists("users", "username", username);
 
   const rows = await insertComment(article_id, username, body);
-
   return rows[0];
 };
 
