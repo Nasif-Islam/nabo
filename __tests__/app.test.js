@@ -86,7 +86,7 @@ describe("Express App Testing", () => {
       expect(article).toMatchObject({
         author: expect.any(String),
         title: expect.any(String),
-        article_id: expect.any(Number),
+        article_id: 1,
         body: expect.any(String),
         topic: expect.any(String),
         created_at: expect.any(String),
@@ -106,7 +106,50 @@ describe("Express App Testing", () => {
   test("status:400 - correct message for bad request", async () => {
     const response = await request(app).get("/api/articles/hello");
     expect(response.status).toBe(400);
-    expect(response.body.msg).toBe("Bad Request");
+    expect(response.body.msg).toBe("Bad request");
+  });
+
+  describe("GET /api/articles/:article_id/comments", () => {
+    test("status:200 - returns all comments", async () => {
+      const response = await request(app).get("/api/articles/1/comments");
+
+      expect(response.status).toBe(200);
+
+      const { comments } = response.body;
+      expect(comments).toBeSortedBy("created_at", { descending: true });
+      expect(Array.isArray(comments)).toBe(true);
+
+      comments.forEach((comment) => {
+        expect(comment).toMatchObject({
+          comment_id: expect.any(Number),
+          votes: expect.any(Number),
+          created_at: expect.any(String),
+          author: expect.any(String),
+          body: expect.any(String),
+          article_id: 1,
+        });
+      });
+    });
+
+    test("status:200 - returns an empty array for articles with no comments", async () => {
+      const response = await request(app).get("/api/articles/2/comments");
+      expect(response.status).toBe(200);
+      expect(response.body.comments).toEqual([]);
+    });
+
+    test("status:404 - correct message for resource not found", async () => {
+      const response = await request(app).get("/api/articles/100/comments");
+      expect(response.status).toBe(404);
+      expect(response.body.msg).toBe("Article not found");
+    });
+
+    test("status:400 - Bad request", async () => {
+      const response = await request(app).get(
+        "/api/articles/articles/comments",
+      );
+      expect(response.status).toBe(400);
+      expect(response.msg).toBe("Bad request");
+    });
   });
 
   describe("GET /api/users", () => {

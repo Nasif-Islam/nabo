@@ -11,6 +11,14 @@ app.all("*path", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  if (err.code === "22P02") {
+    res.status(400).send({ msg: "Bad request" });
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
   if (err.status && err.msg) {
     res.status(err.status).send({ msg: err.msg });
   } else {
@@ -19,16 +27,8 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err.code === "22P02") {
-    res.status(400).send({ msg: "Bad Request" });
-  } else {
-    next(err);
-  }
-});
-
-app.use((err, req, res, next) => {
   console.log(err);
-  res.status(500).send({ msg: "Internal Server Error" });
+  res.status(500).send({ msg: "Internal server rror" });
 });
 
 module.exports = app;

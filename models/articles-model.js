@@ -15,8 +15,10 @@ exports.fetchArticles = async () => {
       articles AS a
     LEFT JOIN
       comments AS c ON a.article_id = c.article_id
-    GROUP BY a.article_id
-    ORDER BY a.created_at DESC
+    GROUP BY
+      a.article_id
+    ORDER BY
+      a.created_at DESC;
   `;
 
   const { rows } = await db.query(queryStr);
@@ -37,7 +39,29 @@ exports.fetchArticleById = async (article_id) => {
     FROM
       articles
     WHERE
-      article_id = $1`,
+      article_id = $1;`,
+    [article_id],
+  );
+
+  return rows;
+};
+
+exports.fetchArticleComments = async (article_id) => {
+  const { rows } = await db.query(
+    `SELECT
+      comment_id,
+      body,
+      article_id,
+      author,
+      votes,
+      created_at
+    FROM
+      comments
+    WHERE
+      article_id = $1
+    ORDER BY
+      created_at DESC;
+    `,
     [article_id],
   );
 
