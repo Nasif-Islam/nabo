@@ -3,44 +3,40 @@ const {
   fetchArticleById,
   fetchArticleComments,
   insertComment,
+  updateArticleVotes,
 } = require("../models/articles-model");
+
+const { validateId, checkExists } = require("../utils/db-validators");
 
 exports.getArticlesService = async () => {
   return await fetchArticles();
 };
 
 exports.getArticleByIdService = async (article_id) => {
-  if (isNaN(article_id) || article_id <= 0) {
-    throw { status: 400, msg: "Bad request" };
-  }
+  validateId(article_id);
 
   const rows = await fetchArticleById(article_id);
 
-  if (rows.length === 0) {
-    throw { status: 404, msg: "Article not found" };
-  }
+  checkExists(rows, "Article");
 
   return rows[0];
 };
 
 exports.getArticleCommentsService = async (article_id) => {
-  if (isNaN(article_id) || article_id <= 0) {
-    throw { status: 400, msg: "Bad request" };
-  }
+  validateId(article_id);
 
-  const article = await fetchArticleById(article_id);
+  const rows = await fetchArticleById(article_id);
 
-  if (article.length === 0) {
-    throw { status: 404, msg: "Article not found" };
-  }
+  checkExists(rows, "Article");
+  // if (article.length === 0) {
+  //   throw { status: 404, msg: "Article not found" };
+  // }
 
   return await fetchArticleComments(article_id);
 };
 
 exports.postCommentService = async (article_id, username, body) => {
-  if (isNaN(article_id) || article_id <= 0) {
-    throw { status: 400, msg: "Bad request" };
-  }
+  validateId(article_id);
 
   if (!username || !body || !username.trim() || !body.trim()) {
     throw { status: 400, msg: "Bad request" };
@@ -48,11 +44,29 @@ exports.postCommentService = async (article_id, username, body) => {
 
   const article = await fetchArticleById(article_id);
 
-  if (article.length === 0) {
+  checkExists(article, "Article");
+
+  // if (article.length === 0) {
+  //   throw { status: 400, msg: "Bad request" };
+  // }
+
+  const rows = await insertComment(article_id, username, body);
+
+  return rows[0];
+};
+
+exports.updateArticleVotesService = async (article_id, inc_votes) => {
+  validateId(article_id);
+
+  if (isNaN(inc_votes)) {
     throw { status: 400, msg: "Bad request" };
   }
 
-  const rows = await insertComment(article_id, username, body);
+  const rows = await updateArticleVotes(article_id, inc_votes);
+
+  if (rows.length === 0) {
+    throw { status: 404, msg: "Article not found" };
+  }
 
   return rows[0];
 };

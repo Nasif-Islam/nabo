@@ -109,6 +109,54 @@ describe("Express App Testing", () => {
     expect(response.body.msg).toBe("Bad request");
   });
 
+  describe("PATCH /api/articles/:article_id", () => {
+    test("200 - returns updated article with incremented votes", async () => {
+      const update = { inc_votes: 10 };
+
+      const { body } = await request(app)
+        .patch("/api/articles/1")
+        .send(update)
+        .expect(200);
+
+      expect(body.article.article_id).toBe(1);
+      expect(body.article.votes).toBe(110);
+    });
+
+    test("200 - returns updated article with decremented votes", async () => {
+      const update = { inc_votes: -100 };
+
+      const { body } = await request(app)
+        .patch("/api/articles/1")
+        .send(update)
+        .expect(200);
+
+      expect(body.article.article_id).toBe(1);
+      expect(body.article.votes).toBe(0);
+    });
+
+    test("404 - responds with an error message for non-existent article_id", async () => {
+      const update = { inc_votes: 1 };
+
+      const { body } = await request(app)
+        .patch("/api/articles/999")
+        .send(update)
+        .expect(404);
+
+      expect(body.msg).toBe("Article not found");
+    });
+
+    test("400 - responds with an error message for invalid article_id", async () => {
+      const update = { inc_votes: 1 };
+
+      const { body } = await request(app)
+        .patch("/api/articles/hello")
+        .send(update)
+        .expect(400);
+
+      expect(body.msg).toBe("Bad request");
+    });
+  });
+
   describe("GET /api/articles/:article_id/comments", () => {
     test("200 - returns all comments", async () => {
       const response = await request(app).get("/api/articles/1/comments");
@@ -144,9 +192,7 @@ describe("Express App Testing", () => {
     });
 
     test("400 - Bad request", async () => {
-      const response = await request(app).get(
-        "/api/articles/articles/comments",
-      );
+      const response = await request(app).get("/api/articles/hello/comments");
       expect(response.status).toBe(400);
       expect(response.body.msg).toBe("Bad request");
     });
@@ -197,7 +243,7 @@ describe("Express App Testing", () => {
       });
     });
 
-    test("400: invalid article id", async () => {
+    test("404: Article not found", async () => {
       const newComment = {
         username: "butter_bridge",
         body: "This is a test comment",
@@ -206,11 +252,25 @@ describe("Express App Testing", () => {
       const res = await request(app)
         .post("/api/articles/100/comments")
         .send(newComment)
-        .expect(400);
+        .expect(404);
 
       const { comment } = res.body;
 
-      expect(res.status).toBe(400);
+      expect(res.status).toBe(404);
+      expect(res.body.msg).toBe("Article not found");
+    });
+
+    test("400: Invalid article id", async () => {
+      const newComment = {
+        username: "butter_bridge",
+        body: "This is a test comment",
+      };
+
+      const res = await request(app)
+        .post("/api/articles/hello/comments")
+        .send(newComment)
+        .expect(400);
+
       expect(res.body.msg).toBe("Bad request");
     });
   });

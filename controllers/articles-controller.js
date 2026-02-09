@@ -3,6 +3,7 @@ const {
   getArticleByIdService,
   getArticleCommentsService,
   postCommentService,
+  updateArticleVotesService,
 } = require("../services/articles-service");
 
 exports.getArticles = async (req, res, next) => {
@@ -43,6 +44,21 @@ exports.postComment = async (req, res, next) => {
 
     const comment = await postCommentService(article_id, username, body);
     res.status(201).send({ comment: comment });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateArticleVotes = async (req, res, next) => {
+  try {
+    const { article_id } = req.params;
+    const { inc_votes } = req.body;
+
+    const updatedArticle = await updateArticleVotesService(
+      article_id,
+      inc_votes,
+    );
+    res.status(200).send({ article: updatedArticle });
   } catch (err) {
     next(err);
   }
