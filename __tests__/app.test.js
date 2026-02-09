@@ -15,7 +15,7 @@ afterAll(() => {
 
 describe("Express App Testing", () => {
   describe("GET /invalid-route", () => {
-    test("status:404 - when passed a non-existent route", async () => {
+    test("404 - when passed a non-existent route", async () => {
       const response = await request(app).get("/invalid-route");
 
       expect(response.status).toBe(404);
@@ -24,7 +24,7 @@ describe("Express App Testing", () => {
   });
 
   describe("GET /api/topics", () => {
-    test("status:200 - responds with correct topics data", async () => {
+    test("200 - responds with correct topics data", async () => {
       const response = await request(app).get("/api/topics");
       const topics = response.body.topics;
 
@@ -45,7 +45,7 @@ describe("Express App Testing", () => {
   });
 
   describe("GET /api/articles", () => {
-    test("status200 - responds with correct articles data", async () => {
+    test("200 - responds with correct articles data", async () => {
       const response = await request(app).get("/api/articles");
       const articles = response.body.articles;
 
@@ -76,7 +76,7 @@ describe("Express App Testing", () => {
   });
 
   describe("GET /api/articles/:article_id", () => {
-    test("status:200 - responds with correct article object", async () => {
+    test("200 - responds with correct article object", async () => {
       const response = await request(app).get("/api/articles/1");
 
       expect(response.status).toBe(200);
@@ -95,7 +95,7 @@ describe("Express App Testing", () => {
       });
     });
 
-    test("status:404 - correct message for resource not found'", async () => {
+    test("404 - correct message for resource not found'", async () => {
       const response = await request(app).get("/api/articles/100");
 
       expect(response.status).toBe(404);
@@ -110,7 +110,7 @@ describe("Express App Testing", () => {
   });
 
   describe("GET /api/articles/:article_id/comments", () => {
-    test("status:200 - returns all comments", async () => {
+    test("200 - returns all comments", async () => {
       const response = await request(app).get("/api/articles/1/comments");
 
       expect(response.status).toBe(200);
@@ -131,29 +131,29 @@ describe("Express App Testing", () => {
       });
     });
 
-    test("status:200 - returns an empty array for articles with no comments", async () => {
+    test("200 - returns an empty array for articles with no comments", async () => {
       const response = await request(app).get("/api/articles/2/comments");
       expect(response.status).toBe(200);
       expect(response.body.comments).toEqual([]);
     });
 
-    test("status:404 - correct message for resource not found", async () => {
+    test("404 - correct message for resource not found", async () => {
       const response = await request(app).get("/api/articles/100/comments");
       expect(response.status).toBe(404);
       expect(response.body.msg).toBe("Article not found");
     });
 
-    test("status:400 - Bad request", async () => {
+    test("400 - Bad request", async () => {
       const response = await request(app).get(
         "/api/articles/articles/comments",
       );
       expect(response.status).toBe(400);
-      expect(response.msg).toBe("Bad request");
+      expect(response.body.msg).toBe("Bad request");
     });
   });
 
   describe("GET /api/users", () => {
-    test("status:200 - responds with correct users data", async () => {
+    test("200 - responds with correct users data", async () => {
       const response = await request(app).get("/api/users");
       const { users } = response.body;
 
@@ -170,6 +170,48 @@ describe("Express App Testing", () => {
           typeof user.avatar_url === "string" || user.avatar_url === null,
         ).toBe(true);
       });
+    });
+  });
+
+  describe("POST /api/articles/:article_id/comments", () => {
+    test("201, posts a new comment and returns the comment", async () => {
+      const newComment = {
+        username: "butter_bridge",
+        body: "This is a test comment",
+      };
+
+      const res = await request(app)
+        .post("/api/articles/1/comments")
+        .send(newComment)
+        .expect(201);
+
+      const { comment } = res.body;
+
+      expect(comment).toMatchObject({
+        comment_id: expect.any(Number),
+        body: "This is a test comment",
+        article_id: 1,
+        author: "butter_bridge",
+        votes: 0,
+        created_at: expect.any(String),
+      });
+    });
+
+    test("400: invalid article id", async () => {
+      const newComment = {
+        username: "butter_bridge",
+        body: "This is a test comment",
+      };
+
+      const res = await request(app)
+        .post("/api/articles/100/comments")
+        .send(newComment)
+        .expect(400);
+
+      const { comment } = res.body;
+
+      expect(res.status).toBe(400);
+      expect(res.body.msg).toBe("Bad request");
     });
   });
 });
