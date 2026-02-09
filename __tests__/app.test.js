@@ -75,6 +75,49 @@ describe("Express App Testing", () => {
     });
   });
 
+  describe("GET /api/articles (sorting and ordering)", () => {
+    test.each(["title", "topic", "author", "votes", "comment_count"])(
+      "200: sorts by %s and maintains default descending order",
+      async (column) => {
+        const { body } = await request(app)
+          .get(`/api/articles?sort_by=${column}`)
+          .expect(200);
+
+        expect(body.articles).toBeSortedBy(column, { descending: true });
+      },
+    );
+
+    test("200: order query overrides default DESC but maintains default created_at column", async () => {
+      const { body } = await request(app)
+        .get("/api/articles?order=asc")
+        .expect(200);
+
+      expect(body.articles).toBeSortedBy("created_at", { descending: false });
+    });
+
+    test("200: accepts both sort_by and order queries", async () => {
+      const { body } = await request(app)
+        .get("/api/articles?sort_by=title&order=asc")
+        .expect(200);
+
+      expect(body.articles).toBeSortedBy("title", { descending: false });
+    });
+
+    test.each([
+      ["sort_by", "hello"],
+      ["order", "bye"],
+    ])(
+      "400: responds with 'Bad request' when passed an invalid %s",
+      async (query, value) => {
+        const { body } = await request(app)
+          .get(`/api/articles?${query}=${value}`)
+          .expect(400);
+
+        expect(body.msg).toBe("Bad request");
+      },
+    );
+  });
+
   describe("GET /api/articles/:article_id", () => {
     test("200 - responds with correct article object", async () => {
       const response = await request(app).get("/api/articles/1");

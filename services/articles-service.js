@@ -8,8 +8,10 @@ const {
 
 const { validateId, checkExists } = require("../utils/db-validators");
 
-exports.getArticlesService = async () => {
-  return await fetchArticles();
+exports.getArticlesService = async (sort_by = "created_at", order = "desc") => {
+  const normalizedSortBy = sort_by.toLowerCase();
+  const normalizedOrder = order.toUpperCase();
+  return await fetchArticles(normalizedSortBy, normalizedOrder);
 };
 
 exports.getArticleByIdService = async (article_id) => {

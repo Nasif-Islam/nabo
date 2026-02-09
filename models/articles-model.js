@@ -1,6 +1,24 @@
 const db = require("../db/connection");
 
-exports.fetchArticles = async () => {
+exports.fetchArticles = async (sort_by, order) => {
+  const validSortColumns = [
+    "article_id",
+    "title",
+    "topic",
+    "author",
+    "created_at",
+    "votes",
+    "comment_count",
+  ];
+
+  const validOrders = ["ASC", "DESC"];
+
+  if (!validSortColumns.includes(sort_by) || !validOrders.includes(order)) {
+    throw { status: 400, msg: "Bad request" };
+  }
+
+  const sortTarget = sort_by === "comment_count" ? sort_by : `a.${sort_by}`;
+
   const queryStr = `
     SELECT
       a.article_id, 
@@ -18,7 +36,7 @@ exports.fetchArticles = async () => {
     GROUP BY
       a.article_id
     ORDER BY
-      a.created_at DESC;
+      ${sortTarget} ${order};
   `;
 
   const { rows } = await db.query(queryStr);

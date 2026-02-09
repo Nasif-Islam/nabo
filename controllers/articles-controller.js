@@ -1,3 +1,4 @@
+const { sort } = require("../db/data/test-data/articles");
 const {
   getArticlesService,
   getArticleByIdService,
@@ -7,8 +8,10 @@ const {
 } = require("../services/articles-service");
 
 exports.getArticles = async (req, res, next) => {
+  const { sort_by, order } = req.query;
+
   try {
-    const articles = await getArticlesService();
+    const articles = await getArticlesService(sort_by, order);
     res.status(200).send({ articles: articles });
   } catch (err) {
     next(err);
