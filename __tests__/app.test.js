@@ -168,9 +168,7 @@ describe("Express App Testing", () => {
 
     describe("GET /api/articles/:article_id", () => {
       test("200 - responds with correct article object", async () => {
-        const response = await request(app).get("/api/articles/1");
-
-        expect(response.status).toBe(200);
+        const response = await request(app).get("/api/articles/1").expect(200);
 
         const article = response.body.article;
 
@@ -183,6 +181,7 @@ describe("Express App Testing", () => {
           created_at: expect.any(String),
           votes: expect.any(Number),
           article_img_url: expect.any(String),
+          comment_count: expect.any(Number),
         });
       });
 
