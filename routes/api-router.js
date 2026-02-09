@@ -5,6 +5,12 @@ const commentsRouter = require("./comments-router");
 
 const apiRouter = require("express").Router();
 
+apiRouter.get("/", (req, res) => {
+  res.status(200).send({
+    msg: "Welcome to the Nabo API! Access endpoints at /api/topics, etc",
+  });
+});
+
 apiRouter.use("/topics", topicsRouter);
 
 apiRouter.use("/articles", articlesRouter);
