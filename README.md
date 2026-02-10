@@ -20,14 +20,21 @@ The API follows RESTful design principles and includes comprehensive error handl
 
 ## Tech Stack
 
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** PostgreSQL
-- **Cloud Database:** [Supabase](https://supabase.com/) (Production)
-- **Hosting:** [Render](https://render.com/)
-- **Testing:** Jest & Supertest
-- **API Testing:** [Insomnia](https://insomnia.rest/)
-- **Code Quality:** Husky (Git hooks)
+- <img src="https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" height="20" style="vertical-align: middle;"> Runtime: Scalable server-side execution and asynchronous logic
+
+- <img src="https://img.shields.io/badge/-Express.js-000000?style=flat-square&logo=express&logoColor=white" height="20" style="vertical-align: middle;"> Framework: RESTful API routing and middleware integration
+
+- <img src="https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" height="20" style="vertical-align: middle;"> Database: Relational data modeling and ACID-compliant storage
+
+- <img src="https://img.shields.io/badge/-Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white" height="20" style="vertical-align: middle;"> Cloud DB: Managed production database with real-time capabilities
+
+- <img src="https://img.shields.io/badge/-Render-46E3B7?style=flat-square&logo=render&logoColor=white" height="20" style="vertical-align: middle;"> Hosting: Automated CI/CD deployment and web service management
+
+- <img src="https://img.shields.io/badge/-Jest-C21325?style=flat-square&logo=jest&logoColor=white" height="20" style="vertical-align: middle;"> Testing: Unit and integration testing for logic reliability
+
+- <img src="https://img.shields.io/badge/-Insomnia-4000BF?style=flat-square&logo=insomnia&logoColor=white" height="20" style="vertical-align: middle;"> API Testing: Manual endpoint validation and request debugging
+
+- <img src="https://img.shields.io/badge/-Husky-663399?style=flat-square" height="20" style="vertical-align: middle;"> Quality: Automated Git hooks for pre-commit linting and tests
 
 ## Prerequisites
 
@@ -39,7 +46,7 @@ Ensure you have the following installed on your system:
 You can check your versions by running
 
 ```bash
-node --versions
+node --versionß
 psql --version
 ```
 
@@ -52,16 +59,20 @@ git clone https://github.com/Nasif-Islam/nabo.git
 cd nabo
 ```
 
-### 2. Set up a .gitignore
+### 2. Set up a `.gitignore`
 
-Ensure your `.gitignore` file contains
+To protect sensitive information, ensure your `.gitignore` file includes the following:
 
 ```
 node_modules
 .env.\*
 ```
 
+Warning: Never commit .env files to a remote repository. They contain sensitive credentials like API keys and passwords. If a leak occurs, revoke and rotate your credentials immediately.
+
 ### 3. Install dependencies
+
+The node_modules directory is excluded from the repository to keep the project lightweight. Install the required packages locally by running:
 
 ```bash
 npm install
@@ -71,21 +82,21 @@ npm install
 
 Create two .env files in the root directory for development and test databases:
 
-\*_`.env.development_`\*
+`.env.development_`
 
 ```
 PGDATABASE=news_aggregator
 PORT=9090    #Can be set to any port number
 ```
 
-**`.env.test`**
+`.env.test`
 
 ```
 PGDATABASE=news_aggregator_test
 PORT=9090    #Can be set to any port number
 ```
 
-> **Note:** If you're connecting to a remote database (e.g., Supabase), you'll need to add additional credentials such as the database connection string and password.
+> **Note:** If you're connecting to a remote database (e.g., Supabase), you will need to add additional credentials such as the database connection string and password.
 
 ### 5. Create Development and Test Databases
 
@@ -235,5 +246,12 @@ Potential features for future development:
 
 **Nasif Islam**
 
-- **GitHub:** [@Nasif-Islam](https://github.com/Nasif-Islam)
-- **LinkedIn:** [nasiful-islam](https://www.linkedin.com/in/nasiful-islam)
+<p align="left">
+  <a href="https://github.com/Nasif-Islam">
+    <img src="https://img.shields.io/badge/--Nasif--Islam-181717?style=for-the-badge&logo=github&logoColor=white" height="28" style="vertical-align: middle;">
+  </a>
+  &nbsp;
+  <a href="https://www.linkedin.com/in/nasiful-islam">
+    <img src="https://github.com/Nasif-Islam/my-assets/raw/refs/heads/main/linkedin.svg?v=8" height="28" style="vertical-align: middle;">
+  </a>
+</p>
