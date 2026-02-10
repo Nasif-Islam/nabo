@@ -141,6 +141,14 @@
             <li>
                 <h3>POST /api/articles/:article_id/comments</h3>
                 <p>Post a comment on a given article and retrieve the newly created comment object</p>
+                <h4>Only accepts data in the following format</h4>
+                <pre><code>
+{
+          username: "butter_bridge",
+          body: "This is a test comment",
+}                    
+                </code></pre>
+
                 <h4>Example response</h4>
                 <pre><code>
 {

@@ -53,6 +53,7 @@ Inside the `<header>` element, add:
 
 Notice that these elements always appear on separate lines, regardless of screen size.
 Why do you think that happens?
+They are block elements - take up the whole width
 
 ---
 
@@ -64,9 +65,12 @@ We'll now list the available API endpoints. Inside the `<main>` section you crea
 2. Add an `<ul>` element beneath the `<h2>`
 
 Which element would you expect to be a direct child of a `<ul>`?
+<li>
+
 Add several list items containing placeholder text for now.
 
 How does this element differ visually from something like a `<p>`?
+It is indented and has a bullet point
 
 ---
 
@@ -103,7 +107,7 @@ html
 Answer the following:
 
 1. What does it mean to have an `<h2>` followed by an `<h3>`, then an `<h4>`?
-You create a nested outline - 
+You create a nested outline
 
 2. Why is maintaining this hierarchy important?
 * accessibility - screen readers, helps navigate information
@@ -111,7 +115,7 @@ You create a nested outline -
 * Visual consistency - Apply default font sizes based on these levels - custom CSS
 
 3. What does the `<pre>` element do, and how does it differ from `<code>`?
-<pre> - preformatted texts, tells HMTL to display the text exactly how it should be in the file
+<pre> - preformatted texts, tells HTML to display the text exactly how it should be in the file
 preserves whitespace, tabs, line breaks etc, it defaults to a monospace (fixed width) font
 best for blocks of code of ASCII
 
@@ -119,7 +123,7 @@ best for blocks of code of ASCII
 does not preserve line breaks or extra spaces
 usage best for mentioning a single variable or command within a sentence e.g use git push
 
-Use them toegther and nest them
+Use them together and nest them
 
 ---
 
