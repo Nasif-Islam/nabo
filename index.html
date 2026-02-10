@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NC News API</title>
+    <link rel="stylesheet" href="styles.css"/>
 </head>
+
 <body>
-    <div class="header">
+    <header>
         <h1>NC NEWS API</h1>
         <p>This page contains documentation for the various endpoints API</p>
+    </header>
+
+    <main>
         <h2>Available Endpoints</h2>
         <ul>
             <li>
-                <h3>GET /api/topics</h3>
-                <p>Retrieve a list of all topics</p>
-                <h4>Example response:</h4>
-                <pre><code>
+                <section>
+                    <h3><code>GET /api/topics</code></h3>
+                    <p>Retrieve a list of all topics</p>
+                    <h4>Example response:</h4>
+                    <pre><code>
 {
     "topics": [
         {
@@ -32,34 +39,40 @@
         }
     ]
 }
-                </code></pre>
+                    </code></pre>
+                </section>
             </li>
+
             <li>
-                <h3>GET /api/users</h3>
-                <p>Retrieve a list of all users</p>
-                <h4>Example response:</h4>
-                <pre><code>
+                <section>
+                    <h3><code>GET /api/users</code></h3>
+                    <p>Retrieve a list of all users</p>
+                    <h4>Example response:</h4>
+                    <pre><code>
 {
     "users": [
         {
             "username": "John",
             "name": "John Smith",
-            "avatar_url": "https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953",
+            "avatar_url": "https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953"
         },
         {
             "username": "grumpy19",
             "name": "Paul Grump",
-            "avatar_url": "https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013",
-        },
+            "avatar_url": "https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013"
+        }
     ]
 }
-            </code></pre>
+                    </code></pre>
+                </section>
             </li>
+
             <li>
-                <h3>GET /api/articles</h3>
-                <p>Retrieve a list of all articles</p>
-                <h4>Example response:</h4>
-                <pre><code>
+                    <section>
+                    <h3><code>GET /api/articles</code></h3>
+                    <p>Retrieve a list of all articles</p>
+                    <h4>Example response:</h4>
+                    <pre><code>
 {
     "articles": [
         {
@@ -81,17 +94,20 @@
             "votes": 0,
             "article_img_url": "https://images.pexels.com/photos/10845119/pexels-photo-10845119.jpeg?w=700&h=700",
             "comment_count": 7
-        },
+        }
     ]
 }           
-            </code></pre>
+                    </code></pre>
+                </section>
             </li>
+
             <li>
-                <h3>GET /api/articles/:article_id</h3>
-                <p>Retrieve a single article object</p>
-                <h4>Example response:</h4>
-                <pre><code>
-{
+                <section>
+                    <h3><code>GET /api/articles/:article_id</code></h3>
+                    <p>Retrieve a single article object</p>
+                    <h4>Example response:</h4>
+                    <pre><code>
+    {
     "article": {
         "article_id": 1,
         "title": "How to use this API",
@@ -104,18 +120,30 @@
         "comment_count": 8
     }
 }
-            </code></pre>
+                    </code></pre>
+                </section>
+            </li>
+
+            <li>
+                <section>
+                    <h3><code>PATCH /api/articles/:article_id</code></h3>
+                    <p>Vote on a specific article</p>
+                    <h4>Accepts the following data</h4>
+                    <p>inc_votes can be positive or negative</p>
+                    <pre><code>
+{
+    "inc_votes": 5
+}
+                    </code></pre>
+                    <h4>No data is returned</h4>
+                </section>
             </li>
             <li>
-                <h3>PATCH /api/articles/:article_id</h3>
-                <p>Update an article</p>
-                <h4>No data is returned</h4>
-            </li>
-            <li>
-                <h3>GET /api/articles/:article_id/comments</h3>
-                <p>Retrieves a list of all comments for a given article</p>
-                <h4>Example response</h4>
-                <pre><code>
+                <section>
+                    <h3><code>GET /api/articles/:article_id/comments</code></h3>
+                    <p>Retrieves a list of all comments for a given article</p>
+                    <h4>Example response</h4>
+                    <pre><code>
 {
     "comments": [
         {
@@ -128,29 +156,31 @@
         },
         {
             "comment_id": 86,
-            "body": "Et explicabo dignissimos officia dolore rerum aliquam corrupti. Culpa corporis earum et earum officia a est atque at. Quidem quo recusandae delectus autem possimus blanditiis optio. Sed culpa culpa. Exercitationem nemo aspernatur alias ut qui.",
+            "body": "Et explicabo dignissimos officia dolore rerum aliquam corrupti. Culpa corporis earum et earum officia a est atque at."
             "article_id": 1,
             "author": "Bob",
             "votes": 14,
             "created_at": "2020-10-04T02:03:00.000Z"
-        },
+        }
     ]
 }
-                </code></pre>
+                    </code></pre>
+                </section>
             </li>
-            <li>
-                <h3>POST /api/articles/:article_id/comments</h3>
-                <p>Post a comment on a given article and retrieve the newly created comment object</p>
-                <h4>Only accepts data in the following format</h4>
-                <pre><code>
-{
-          username: "butter_bridge",
-          body: "This is a test comment",
-}                    
-                </code></pre>
 
-                <h4>Example response</h4>
-                <pre><code>
+            <li>
+                <section>
+                    <h3><code>POST /api/articles/:article_id/comments</code></h3>
+                    <p>Post a comment on a given article and retrieve the newly created comment object</p>
+                    <h4>Only accepts data in the following format</h4>
+                    <pre><code>
+{
+          "username": "butter_bridge",
+          "body": "This is a test comment"
+}                    
+                    </code></pre>
+                    <h4>Example response</h4>
+                    <pre><code>
 {
 	"comment": {
 		"comment_id": 200,
@@ -161,15 +191,17 @@
 		"created_at": "2026-02-10T13:58:22.952Z"
 	}
 }
-                </code></pre>
+                    </code></pre>
+                </section>
             </li>
-            <li>
-                <h3>DELETE /api/comments/:comment_id</h3>
-                <p>Delete a comment and retrieve the newly created comment</p>
 
+            <li>
+                <section>
+                    <h3><code>DELETE /api/comments/:comment_id</code></h3>
+                    <p>Delete a comment and retrieve the newly created comment</p>
+                </section>
             </li>
         </ul>
-    </div>
-    <div class="main"></div>
+    </main>
 </body>
 </html>

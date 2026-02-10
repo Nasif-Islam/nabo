@@ -1,7 +1,7 @@
 {
-  "name": "be-nc-news",
+  "name": "nabo",
   "version": "1.0.0",
-  "description": "bc-nc-news",
+  "description": "Reddit style social news aggregator",
   "main": "listen.js",
   "scripts": {
     "setup-dbs": "psql -f ./db/setup-dbs.sql",
@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/northcoders/be-nc-news.git"
+    "url": "git+https://github.com/Nasif-Islam/nabo/git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Nasif Islam",
+  "license": "ISC",  
   "bugs": {
-    "url": "https://github.com/northcoders/be-nc-news/issues"
+    "url": "https://github.com/Nasif-Islam/nabo"
   },
-  "homepage": "https://github.com/northcoders/be-nc-news#readme",
+  "homepage": "https://github.com/Nasif-Islam/nabo#readme",
   "devDependencies": {
     "husky": "^8.0.2",
     "jest": "^27.5.1",
