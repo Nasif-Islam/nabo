@@ -242,6 +242,10 @@ Potential features for future development:
 - Rate limiting
 - API documentation with Swagger/OpenAPI
 
+## Credits
+
+Built following a professional full-stack industry brief by Northcoders. Special thanks to the Northcoders team for their technical guidance and mentorship throughout the development process.Implementation and feature expansions are my own.
+
 ## Author
 
 **Nasif Islam**
