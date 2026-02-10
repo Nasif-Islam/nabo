@@ -300,11 +300,8 @@ describe("Express App Testing", () => {
           expect(user).toMatchObject({
             username: expect.any(String),
             name: expect.any(String),
+            avatar_url: expect.any(String || null),
           });
-
-          expect(
-            typeof user.avatar_url === "string" || user.avatar_url === null,
-          ).toBe(true);
         });
       });
     });
