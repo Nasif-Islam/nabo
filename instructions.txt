@@ -1,0 +1,284 @@
+# NC News Static Page
+
+Today's task is to build a static page to serve up as the homepage to your server. Until now, we've served JSON, but to act as documentation for people who'd like to consume the data, we should present the endpoints in a more user-friendly way! We'll focus on the HTML and CSS files independently first and then hook them up to Express.
+
+## HTML
+
+In this section, we'll focus on **HTML**, the language used to define the structure of a web page.
+All HTML elements come with **default browser styling**. As you build this document, pay attention to how each element appears in the browser before any CSS is applied.
+
+---
+
+### Task 1: Generate the HTML boilerplate
+
+1. Create a new file called `index.html`.
+2. In your editor, type `!` and press **Tab** or **Enter** to generate the HTML boilerplate.
+3. Confirm that your file includes:
+   - `<!DOCTYPE html>`
+   - `<html>`, `<head>`, and `<body>` elements
+
+4. Inside the `<head>`, update the `<title>` so it reads **NC News API**.
+5. Open the file in your browser (or start Live Server).
+
+You should see the title text displayed in the browser tab. This comes directly from the `<title>` element.
+
+---
+
+### Task 2: Add semantic containers to the `<body>`
+
+We're going to divide the page into two main sections:
+
+- One to contain the page title and introductory text
+- One to contain the rest of the page content
+
+While we _could_ use `<div>` elements, they don't describe the purpose of the content they hold.
+Instead, review the available [HTML semantic elements](https://www.w3schools.com/html/html5_semantic_elements.asp) and choose appropriate tags for each section.
+
+- Save your file and refresh the browser.
+- You shouldn't see any visible changes yet — why do you think that is?
+
+> **Tip:** Right-click anywhere in the browser and select **Inspect**. You should see your two semantic elements as siblings within the document structure.
+
+---
+
+### Task 3: Add content to the title section
+
+Two good semantic choices for the previous task are `<header>` and `<main>`.
+Refactor your markup to use these elements if you chose different ones.
+
+Inside the `<header>` element, add:
+
+- An `<h1>` containing **NC News API**
+- A `<p>` with a short description of what your API does
+
+Notice that these elements always appear on separate lines, regardless of screen size.
+Why do you think that happens?
+
+---
+
+### Task 4: Create a list of endpoints
+
+We'll now list the available API endpoints. Inside the `<main>` section you created earlier:
+
+1. Add an `<h2>` with the text **Available Endpoints:**
+2. Add an `<ul>` element beneath the `<h2>`
+
+Which element would you expect to be a direct child of a `<ul>`?
+Add several list items containing placeholder text for now.
+
+How does this element differ visually from something like a `<p>`?
+
+---
+
+### Task 5: Add endpoint details
+
+Update the first `<li>` so it contains the following HTML:
+
+html
+<h3>GET /api/topics</h3>
+<p>Retrieve a list of all topics.</p>
+
+<h4>Example response:</h4>
+<pre>
+  <code>
+{
+  "topics": [
+    {
+      "slug": "coding",
+      "description": "Code is love, code is life"
+    },
+    {
+      "slug": "football",
+      "description": "FOOTIE!"
+    },
+    {
+      "slug": "cooking",
+      "description": "Hey good looking, what you got cooking?"
+    }
+  ]
+}
+  </code>
+</pre>
+
+Answer the following:
+
+1. What does it mean to have an `<h2>` followed by an `<h3>`, then an `<h4>`?
+You create a nested outline - 
+
+2. Why is maintaining this hierarchy important?
+* accessibility - screen readers, helps navigate information
+* SEO - helps bots index your content more accurately
+* Visual consistency - Apply default font sizes based on these levels - custom CSS
+
+3. What does the `<pre>` element do, and how does it differ from `<code>`?
+<pre> - preformatted texts, tells HMTL to display the text exactly how it should be in the file
+preserves whitespace, tabs, line breaks etc, it defaults to a monospace (fixed width) font
+best for blocks of code of ASCII
+
+<code> Element (inline code) - semantic tag - used to identify a string of text as code
+does not preserve line breaks or extra spaces
+usage best for mentioning a single variable or command within a sentence e.g use git push
+
+Use them toegther and nest them
+
+---
+
+### Task 6: Add all available endpoints
+
+- Add additional `<li>` elements for each endpoint in your API.
+- Follow the same structure used in the previous task.
+- Include information about request bodies or optional query parameters where relevant.
+
+---
+
+## CSS
+
+Now it's time to override the browser's default HTML styling.
+
+---
+
+### Task 1: Create a stylesheet
+
+1. Create a new file called `style.css`.
+2. Link this stylesheet to your HTML file using a `<link>` element in the `<head>`.
+
+---
+
+### Task 2: Visualising elements
+
+Understanding how HTML elements fit together can be difficult.
+One useful technique is adding borders to visualise how much space an element occupies.
+
+Add the following to `style.css`:
+
+css
+header {
+  border: 2px solid red;
+}
+
+Observe the result in the browser:
+
+- The header spans the full width of the page
+- The text sits close to the left edge
+- There is a small default margin
+
+Now add borders with different colours to the `<h1>` and `<p>` elements.
+Notice how much space each element takes up and how the borders resize when the screen width changes.
+
+It seems that there are multiple `<p>` tags on the page. All of them have been targeted to receive the colour border. How could you target just the border in the `<header>`? You have a few options here!
+
+---
+
+### Task 3: The `display` property
+
+By default, many HTML elements use `display: block`.
+
+1. Add `display: inline` to the `<h1>` styles.
+2. Apply the same rule to the `<p>`.
+
+Both elements should now appear on the same line.
+
+Block elements take up the full width of their parent.
+Inline elements only take up as much space as their content.
+
+Now:
+
+- Remove `display: inline` from both elements
+- Apply `display: flex` to their parent container
+
+Notice how the children align on one line again.
+
+Take a look at the following guide to see how you can use flex to arrange children inside of a parent element. [Flexbox guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+Once finished experimenting, clear the contents of the CSS file.
+
+---
+
+### Task 4: Defining global styles
+
+Add the following to `style.css`:
+
+css
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+Research and answer:
+
+1. How does `box-sizing: border-box` affect layout?
+2. Why are multiple fonts listed?
+3. What is the difference between `background-color` and `color`?
+
+---
+
+### Task 5: Styling the header
+
+Target and style the `<header>` to:
+
+- Use a dark background colour
+- Use a contrasting text colour
+- Add **1.5rem** of padding
+- Center the text
+
+Answer:
+
+1. What types of values can `color` take?
+2. Why is strong colour contrast important for accessibility?
+3. Padding makes up part of the **Box Model**, how does it differ to `margin`?
+
+---
+
+### Task 6: Removing default list styling
+
+Notice the indentation on the `<ul>`.
+
+- Add temporary borders to `<ul>` and `<li>` to visualise the spacing
+- Remove the left padding from the `<ul>`
+- Remove the bullet points using CSS
+
+---
+
+### Task 7: Styling the content
+
+Add `class="endpoint-card"` to each `<li>`.
+
+Using `.endpoint-card`, apply styles to:
+
+- Set a pale background
+- Add a thin border
+- Slightly round the border corners
+
+Target `<main>` to:
+
+- Set a **maximum width**
+- Centre the content horizontally
+
+Which box-model property can you change to add space between the border and the content?
+
+---
+
+### Task 8: Serve the page from your server
+
+Serve this page from your Express server as static content.
+
+Use the [Express documentation](https://expressjs.com/en/starter/static-files.html) to research how to do this.
+
+---
+
+### Task 9: Add your own creative touch
+
+Time to got ahead and explore. Take a look at some things you could add:
+
+- add hyperlinks to each available endpoint
+- create a footer to allow people to get back to your github profile
+- create a navigation bar to fast travel to the different sections of the page
+
+Feel free to explore more advanced CSS concepts:
+
+- CSS Grid
+- Pseudo-classes
+- Animations
+- Media queries
